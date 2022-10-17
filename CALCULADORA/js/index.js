@@ -4,6 +4,7 @@ let opCorrecta= true;
 
 let operacion;
 do{
+    function obtenerOperacion(){
     do{
         operacion = prompt ("Introduce la operacion que quieres realizar (+,-,*,/)"); 
         switch(operacion){
@@ -16,29 +17,35 @@ do{
                      !opCorrecta;    
         }
     }while(!opCorrecta);
+}
+obtenerOperacion();
     let operadores;
     let operador1;
     let operador2;
-    do{
-        operadores = prompt ("Introduce los dos operadores separados por un espacio");
-        operadores = operadores.trim();
-        operador1 = Number(operadores.substring(0,operadores.indexOf(' ')));
-        operador2 = Number(operadores.substring(operadores.indexOf(' '),operadores.length));
-    }while(!operador1 || !operador2);
+    let obtenerOperandos = function(){
+        do{
+            operadores = prompt ("Introduce los dos operadores separados por un espacio");
+            operadores = operadores.trim();
+            operador1 = Number(operadores.substring(0,operadores.indexOf(' ')));
+            operador2 = Number(operadores.substring(operadores.indexOf(' '),operadores.length));
+        }while(!operador1 || !operador2);
+    }
+    obtenerOperandos();
     
-    let resultado;
-    
+    let obtenerSuma = (operador1,operador2) => operador1 + operador2;
+    let obtenerResta = (operador1,operador2) => operador1 - operador2;
+    let obtenerProducto = (operador1,operador2) => operador1 * operador2;
+    let obtenerDivision = (operador1,operador2) => operador1 / operador2;
     switch(operacion){
-        case '+': resultado=operador1 + operador2;
+        case '+': alert(obtenerSuma(operador1,operador2));
             break;
-        case '-': resultado=operador1 - operador2;
+        case '-': alert(obtenerResta(operador1,operador2));
             break;
-        case '*': resultado=operador1 * operador2;
+        case '*': alert(obtenerProducto(operador1,operador2));
             break;
-        case '/': resultado=operador1 / operador2;
+        case '/': alert(obtenerDivision(operador1,operador2));
             break; 
     }
-    alert(resultado);
 }while(confirm("¿Quieres seguir operando?"));
 
 
