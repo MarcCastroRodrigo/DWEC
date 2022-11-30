@@ -1,8 +1,10 @@
 "use strict"
 alert ("Bienvenido a la calculadora");
 let opCorrecta= true;
-
 let operacion;
+let calculadora = {
+    lastResult : 0
+};
 do{
     function obtenerOperacion(){
     do{
@@ -25,27 +27,52 @@ obtenerOperacion();
     let obtenerOperandos = function(){
         do{
             operadores = prompt ("Introduce los dos operadores separados por un espacio");
-            operadores = operadores.trim();
+            operadores = operadores.trim();            
             operador1 = Number(operadores.substring(0,operadores.indexOf(' ')));
             operador2 = Number(operadores.substring(operadores.indexOf(' '),operadores.length));
+            if (operadores.substring(0,operadores.indexOf(' ')) == "R"){
+                operador1 = calculadora.lastResult;
+               console.log(operador1);
+            }
+            if (operadores.substring(operadores.indexOf(' '),operadores.length).trim() == "R"){
+                operador2 = calculadora.lastResult;
+                console.log(operador2);
+            }
         }while(!operador1 || !operador2);
     }
     obtenerOperandos();
-    
-    let obtenerSuma = (operador1,operador2) => operador1 + operador2;
-    let obtenerResta = (operador1,operador2) => operador1 - operador2;
-    let obtenerProducto = (operador1,operador2) => operador1 * operador2;
-    let obtenerDivision = (operador1,operador2) => operador1 / operador2;
+    calculadora.sumar = function() {
+        this.lastResult = operador1 + operador2;
+        return this.lastResult;
+            
+    }
+    calculadora.restar = function() {
+        this.lastResult = operador1 - operador2;
+        return this.lastResult;
+    }
+    calculadora.multiplicar = function() {
+        this.lastResult = operador1 * operador2;
+        return this.lastResult;
+    }
+    calculadora.dividir = function() {
+        this.lastResult = operador1 / operador2;
+        return this.lastResult;
+    }
     switch(operacion){
-        case '+': alert(obtenerSuma(operador1,operador2));
+        case '+': alert(calculadora.sumar());
+                console.log(calculadora.lastResult);
             break;
-        case '-': alert(obtenerResta(operador1,operador2));
+        case '-': alert(calculadora.restar());
             break;
-        case '*': alert(obtenerProducto(operador1,operador2));
+        case '*': alert(calculadora.multiplicar());
             break;
-        case '/': alert(obtenerDivision(operador1,operador2));
+        case '/': alert(calculadora.dividir());
             break; 
     }
 }while(confirm("¿Quieres seguir operando?"));
+
+
+
+
 
 
